@@ -1,31 +1,20 @@
 package com.sarika.apps.movietime.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name="Booking_seats")
+@Table(name="booking_seats")
 @IdClass(BookingSeatsId.class)
+@Getter
+@Setter
 public class BookingSeats {
     @Id
     @Column(name = "booking_id")
-    private int bookingId;
+    private Integer bookingId;
+
     @Id
     @Column(name = "seat_number")
     private int seatNumber;
-
-    public int getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
-    }
-
-    public int getSeatNumber() {
-        return seatNumber;
-    }
-
-    public void setSeatNumber(int seatNumber) {
-        this.seatNumber = seatNumber;
-    }
 }

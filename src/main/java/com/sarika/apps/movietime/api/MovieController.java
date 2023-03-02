@@ -47,9 +47,4 @@ public class MovieController {
         return ResponseEntity.ok(runningMovies);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path="/{id}/movieShows")
-    public ResponseEntity<List<MovieShow>> getShowsForMovie(@PathVariable(name = "id") Integer movieId){
-        List<MovieShow> movieShows = movieShowRepository.findMovieShowsByMovie(movieId);
-        return ResponseEntity.ok(movieShows);
-    }
 }

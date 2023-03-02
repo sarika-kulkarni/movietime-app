@@ -1,61 +1,39 @@
 package com.sarika.apps.movietime.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
-@Table(name="Booking")
+@Table(name="booking")
+@Getter
+@Setter
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
-    private int bookingId;
+    private Integer bookingId;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingSeats> seats = new ArrayList<>();
+
     @Column(name = "email")
     private String email;
-    @Column(name = "movieshow_id")
-    private int movieShowID;
+
+    @ManyToOne
+    @JoinColumn(name = "movieshow_id")
+    private MovieShow movieShow;
+
     @Column(name = "booking_date")
     private Date bookingDate;
-    @Column(name = "total_cost")
-    private double totalCoast;
 
-    public int getBookingId() {
-        return bookingId;
-    }
+    @Column(name = "adult_tickets")
+    private int adultTickets;
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getMovieShowID() {
-        return movieShowID;
-    }
-
-    public void setMovieShowID(int movieShowID) {
-        this.movieShowID = movieShowID;
-    }
-
-    public Date getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
-    }
-
-    public double getTotalCoast() {
-        return totalCoast;
-    }
-
-    public void setTotalCoast(double totalCoast) {
-        this.totalCoast = totalCoast;
-    }
+    @Column(name = "child_tickets")
+    private int childTickets;
 }
