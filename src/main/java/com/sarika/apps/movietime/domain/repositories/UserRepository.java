@@ -1,15 +1,15 @@
 package com.sarika.apps.movietime.domain.repositories;
 
 
-import com.sarika.apps.movietime.domain.entities.UserDetails;
+import com.sarika.apps.movietime.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserDetails, String> {
+public interface UserRepository extends JpaRepository<User, String> {
     @Override
-    <S extends UserDetails> S saveAndFlush(S entity);
+    <S extends User> S saveAndFlush(S entity);
 
     @Override
-    Optional<UserDetails> findById(String s);
+    Optional<User> findById(String s);
 }

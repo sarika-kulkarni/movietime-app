@@ -23,8 +23,6 @@ public class BookingController {
     @Autowired
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 
-
-
     public void bookShow(){
 
     }

@@ -1,6 +1,7 @@
 -- create database MovieTime;
 drop table if exists booked_seats;
 drop table if exists Booking;
+drop table if exists user_roles;
 drop table if exists user_details;
 drop table if exists Movierelease;
 drop table if exists Movieshow;
@@ -53,8 +54,7 @@ CREATE TABLE user_details (
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   phone VARCHAR(20) NOT NULL,
-user_password varchar(50),
-isadmin boolean,
+user_password varchar(255),
   PRIMARY KEY (email)
 );
 -------
@@ -91,3 +91,10 @@ seat_number INT NOT NULL,
 primary key(booking_id, seat_row, seat_number),
 foreign key (booking_id) REFERENCES Booking(booking_id)
 );
+
+create table user_roles (
+email varchar(255) not null,
+role varchar(50) not null,
+primary key(email, role),
+foreign key(email) references user_details(email)
+)
