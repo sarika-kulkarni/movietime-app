@@ -1,8 +1,10 @@
 package com.sarika.apps.movietime.api;
 
+import com.sarika.apps.movietime.domain.entities.Booking;
 import com.sarika.apps.movietime.domain.entities.MovieShow;
 import com.sarika.apps.movietime.domain.repositories.MovieShowRepository;
 import com.sarika.apps.movietime.domain.services.BookingService;
+import com.sarika.apps.movietime.domain.vo.BookingRequest;
 import com.sarika.apps.movietime.domain.vo.MovieShowAvailability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,5 +45,23 @@ public class MovieShowController {
                 movieShowDate);
 
         return ResponseEntity.ok(movieShowAvailability);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            path = "/{movieShowId}/bookings",
+            consumes = "application/json"
+    )
+    public ResponseEntity<Booking> bookMovieShow(
+            @PathVariable(name = "movieId") Integer movieId,
+            @PathVariable(name = "movieShowId") Integer movieShowId,
+            @RequestBody BookingRequest bookingRequest){
+
+        Booking booking = bookingService.bookShow(
+                movieId,
+                movieShowId,
+                bookingRequest);
+
+        return ResponseEntity.ok(booking);
     }
 }

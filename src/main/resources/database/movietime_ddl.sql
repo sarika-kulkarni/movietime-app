@@ -1,5 +1,5 @@
 -- create database MovieTime;
-drop table if exists booking_seats;
+drop table if exists booked_seats;
 drop table if exists Booking;
 drop table if exists user_details;
 drop table if exists Movierelease;
@@ -86,7 +86,8 @@ CREATE TABLE Booking (
 ------
 CREATE TABLE Booked_seats (
 booking_id INT NOT NULL,
+seat_row VARCHAR(1) NOT NULL,
 seat_number INT NOT NULL,
-primary key(booking_id, seat_number),
+primary key(booking_id, seat_row, seat_number),
 foreign key (booking_id) REFERENCES Booking(booking_id)
 );

@@ -18,8 +18,8 @@ public class Booking {
     @Column(name = "booking_id")
     private Integer bookingId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BookingSeats> seats = new ArrayList<>();
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookedSeat> seats = new ArrayList<>();
 
     @Column(name = "email")
     private String email;
