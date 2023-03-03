@@ -6,3 +6,5 @@ VALUES (1, 1, '2023-02-20', '2023-05-22');
 
 insert into movieshow (movie_id, theater_id, showtime, auditorium_id, adult_ticket_price, child_ticket_price)
 values(1, 1, "15:00:00", 1, 10, 5);
+
+update user_details set isadmin = true where email = "admin@movietime.com";

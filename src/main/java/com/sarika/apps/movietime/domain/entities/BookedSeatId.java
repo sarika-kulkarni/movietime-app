@@ -6,16 +6,16 @@ import lombok.Setter;
 import java.io.Serializable;
 @Getter
 @Setter
-public class BookedSeatsId implements Serializable {
+public class BookedSeatId implements Serializable {
     private Booking booking;
     private String seatRow;
     private int seatNumber;
 
-    public BookedSeatsId(){
+    public BookedSeatId(){
 
     }
 
-    public BookedSeatsId(Booking booking, String seatRow, int seatNumber){
+    public BookedSeatId(Booking booking, String seatRow, int seatNumber){
         this.booking = booking;
         this.seatNumber = seatNumber;
         this.seatRow = seatRow;

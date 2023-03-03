@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="booked_seats")
-@IdClass(BookedSeatsId.class)
+@IdClass(BookedSeatId.class)
 @Getter
 @Setter
 public class BookedSeat {
