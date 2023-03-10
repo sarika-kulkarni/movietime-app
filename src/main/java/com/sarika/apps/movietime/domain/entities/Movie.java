@@ -1,8 +1,9 @@
 package com.sarika.apps.movietime.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,10 +12,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Movie")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "movieId"
-)
+@Getter
+@Setter
 public class Movie {
 
     @Id
@@ -34,74 +33,16 @@ public class Movie {
     @Column(name = "Duration")
     private int duration;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     @JoinTable(
         name = "movierelease",
         joinColumns = { @JoinColumn(name = "movie_id") },
         inverseJoinColumns = { @JoinColumn(name = "theater_id") }
     )
+    @JsonIgnore
     private Set<Theater> theaters;
 
-    public List<MovieShow> getMovieShows() {
-        return movieShows;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<MovieShow> movieShows = new ArrayList<>();
-
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getMovieLanguage() {
-        return movieLanguage;
-    }
-
-    public void setMovieLanguage(String movieLanguage) {
-        this.movieLanguage = movieLanguage;
-    }
 }

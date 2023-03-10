@@ -43,5 +43,4 @@ public class TheaterController {
         List<Theater> theaters = theaterRepository.findByZip(zip);
         return ResponseEntity.ok(theaters);
     }
-
 }

@@ -29,7 +29,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public MovieShowAvailability getMovieShowAvailability(Integer movieId, Integer movieShowId, Date movieShowDate) {
+    public MovieShowAvailability getMovieShowAvailability(Integer movieShowId, Date movieShowDate) {
         MovieShowAvailability movieShowAvailability = new MovieShowAvailability();
         Optional<MovieShow> movieShow = movieShowRepository.findById(movieShowId);
 
@@ -53,7 +53,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking bookShow(Integer movieId, Integer movieShowId, BookingRequest bookingRequest) {
+    public Booking bookShow(Integer movieShowId, BookingRequest bookingRequest) {
         Optional<MovieShow> movieShow = movieShowRepository.findById(movieShowId);
         Booking booking = new Booking();
         booking.setBookingDate(bookingRequest.getMovieShowDate());

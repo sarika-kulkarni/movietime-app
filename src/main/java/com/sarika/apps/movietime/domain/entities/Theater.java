@@ -1,8 +1,9 @@
 package com.sarika.apps.movietime.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="theater")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "theaterId"
-)
+@Getter
+@Setter
 public class Theater {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,36 +24,10 @@ public class Theater {
     private String zip;
 
     @ManyToMany(mappedBy = "theaters")
+    @JsonIgnore
     private Set<Movie> movies;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "theater", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "theater", orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<MovieShow> movieShows = new ArrayList<>();
-
-    public List<MovieShow> getMovieShows() {
-        return movieShows;
-    }
-
-    public int getTheaterId() {
-        return theaterId;
-    }
-
-    public void setTheaterId(int theaterId) {
-        this.theaterId = theaterId;
-    }
-
-    public String getTheaterName() {
-        return theaterName;
-    }
-
-    public void setTheaterName(String theaterName) {
-        this.theaterName = theaterName;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+
+    <title>MovieTime</title>
+</head>
+<body>
+    <header>
+        <div>MovieTime</div>
+    </header>
+    <nav>
+        <ul>
+            <li>Movies</li>
+            <li>Theaters</li>
+            <li>Login</li>
+        </ul>
+    </nav>
+
+    <section name="content">
+        <div class="movies-container">
+
+        </div>
+    </section>
+
+    <section>
+        <div>&copy; 2023 MovieTime.com</div>
+    </section>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script>
+        $.ajax('/movietime/movies?running=true',   // request url
+        {
+            success: function (data, status, xhr) {// success callback function
+                $('.movies-container').append(JSON.stringify(data));
+            }
+        });
+    </script>
+</body>
+</html>

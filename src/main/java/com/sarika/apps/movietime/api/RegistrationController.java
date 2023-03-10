@@ -2,6 +2,7 @@ package com.sarika.apps.movietime.api;
 
 import com.sarika.apps.movietime.domain.services.UserService;
 import com.sarika.apps.movietime.domain.vo.UserRegistrationRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public void registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest){
+    public void registerUser(@RequestBody @Valid UserRegistrationRequest userRegistrationRequest){
         userService.registerUser(userRegistrationRequest);
     }
 }

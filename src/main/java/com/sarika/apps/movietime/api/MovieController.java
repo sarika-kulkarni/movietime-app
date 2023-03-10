@@ -1,15 +1,16 @@
 package com.sarika.apps.movietime.api;
 
 import com.sarika.apps.movietime.domain.entities.Movie;
-import com.sarika.apps.movietime.domain.entities.MovieShow;
 import com.sarika.apps.movietime.domain.repositories.MovieRepository;
 import com.sarika.apps.movietime.domain.repositories.MovieShowRepository;
+import com.sarika.apps.movietime.domain.vo.MovieShowDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/movies")
@@ -46,5 +47,17 @@ public class MovieController {
         List<Movie> runningMovies = movieRepository.findRunningMovies();
         return ResponseEntity.ok(runningMovies);
     }
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}/movieShows")
+    public ResponseEntity<List<MovieShowDetails>> getMovieShows(@PathVariable("id") Integer movieId){
+        Optional<Movie> movie =  movieRepository.findById(movieId);
 
+        if(movie.isPresent()){
+            List<MovieShowDetails> movieShows = movie.get().getTheaters().stream()
+                    .map(theater -> new MovieShowDetails(movieId, theater))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(movieShows);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
