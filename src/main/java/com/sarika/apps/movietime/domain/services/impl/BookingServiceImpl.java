@@ -37,7 +37,7 @@ public class BookingServiceImpl implements BookingService {
             throw new MovieShowNotFoundException();
         }
 
-        List<Booking> bookings = bookingRepository.findByMovieShow(movieShowId);
+        List<Booking> bookings = bookingRepository.findByMovieShow(movieShowId, movieShowDate);
 
         movieShowAvailability.setMovieShowDate(movieShowDate);
         movieShowAvailability.setNumberOfRows(movieShow.get().getAuditorium().getNumberOfRows());
