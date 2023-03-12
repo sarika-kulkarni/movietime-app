@@ -11,6 +11,6 @@ import java.util.Date;
 public interface BookingService {
     MovieShowAvailability getMovieShowAvailability(Integer movieShowId, Date movieShowDate);
 
-    Booking bookShow(Integer movieShowId, BookingRequest bookingRequest);
+    Booking bookShow(String userId, Integer movieShowId, BookingRequest bookingRequest);
 }
 

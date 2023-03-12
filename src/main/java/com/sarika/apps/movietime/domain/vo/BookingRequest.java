@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BookingRequest {
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
     private Date movieShowDate;
     private int numberOfAdultTickets;
     private int numberOfChildTickets;

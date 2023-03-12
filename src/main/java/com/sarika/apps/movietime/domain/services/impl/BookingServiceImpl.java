@@ -53,12 +53,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking bookShow(Integer movieShowId, BookingRequest bookingRequest) {
+    public Booking bookShow(String userId, Integer movieShowId, BookingRequest bookingRequest) {
         Optional<MovieShow> movieShow = movieShowRepository.findById(movieShowId);
         Booking booking = new Booking();
         booking.setBookingDate(bookingRequest.getMovieShowDate());
         booking.setMovieShow(movieShow.get());
-        booking.setEmail("abc@xyz.com");//TODO Remove hardcoding
+        booking.setEmail(userId);
         booking.setChildTickets(bookingRequest.getNumberOfChildTickets());
         booking.setAdultTickets(bookingRequest.getNumberOfAdultTickets());
 

@@ -1,6 +1,7 @@
 package com.sarika.apps.movietime.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ public class BookedSeat {
     @Id
     @ManyToOne
     @JoinColumn(name = "booking_id")
-    @JsonBackReference
+    @JsonIgnore
     private Booking booking;
 
     @Id

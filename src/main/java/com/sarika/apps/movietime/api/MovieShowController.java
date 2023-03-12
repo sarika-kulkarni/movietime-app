@@ -7,13 +7,18 @@ import com.sarika.apps.movietime.domain.vo.BookingRequest;
 import com.sarika.apps.movietime.domain.vo.MovieShowAvailability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
 @RestController
-@RequestMapping("/movieShows")
+@RequestMapping("/api/movieShows")
 public class MovieShowController {
 
     private MovieShowRepository movieShowRepository;
@@ -40,16 +45,22 @@ public class MovieShowController {
     @RequestMapping(
             method = RequestMethod.POST,
             path = "/{movieShowId}/bookings",
-            consumes = "application/json"
-    )
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Booking> bookMovieShow(
             @PathVariable(name = "movieShowId") Integer movieShowId,
             @RequestBody BookingRequest bookingRequest){
 
-        Booking booking = bookingService.bookShow(
-                movieShowId,
-                bookingRequest);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return ResponseEntity.ok(booking);
+        if(authentication != null && authentication.isAuthenticated()){
+            Booking booking = bookingService.bookShow(
+                    ((UserDetails) authentication.getPrincipal()).getUsername(),
+                    movieShowId,
+                    bookingRequest);
+
+            return ResponseEntity.ok(booking);
+        }else{
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

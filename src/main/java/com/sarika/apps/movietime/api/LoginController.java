@@ -1,11 +1,11 @@
 package com.sarika.apps.movietime.api;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequestMapping("/")
-public class IndexController {
+public class LoginController {
+    @GetMapping("/login")
     public String home(){
         return "index";
     }
