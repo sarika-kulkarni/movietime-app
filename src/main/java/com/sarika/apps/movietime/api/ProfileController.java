@@ -4,6 +4,7 @@ import com.sarika.apps.movietime.domain.entities.User;
 import com.sarika.apps.movietime.domain.repositories.UserRepository;
 import com.sarika.apps.movietime.domain.vo.UserProfile;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/profile")
+@Slf4j
 public class ProfileController {
     private UserRepository userRepository;
 

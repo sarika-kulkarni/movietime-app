@@ -9,6 +9,7 @@ import com.sarika.apps.movietime.domain.repositories.MovieShowRepository;
 import com.sarika.apps.movietime.domain.services.BookingService;
 import com.sarika.apps.movietime.domain.vo.BookingRequest;
 import com.sarika.apps.movietime.domain.vo.MovieShowAvailability;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class BookingServiceImpl implements BookingService {
 
     private MovieShowRepository movieShowRepository;
@@ -54,6 +56,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking bookShow(String userId, Integer movieShowId, BookingRequest bookingRequest) {
+        log.info("Booking show for user {} for movie show id {}", userId, movieShowId);
         Optional<MovieShow> movieShow = movieShowRepository.findById(movieShowId);
         Booking booking = new Booking();
         booking.setBookingDate(bookingRequest.getMovieShowDate());
@@ -69,6 +72,12 @@ public class BookingServiceImpl implements BookingService {
         booking.setSeats(bookingRequest.getRequestedSeats());
 
         bookingRepository.saveAndFlush(booking);
+
+        log.info("Booking successful for user {} for movie show id {}, booking reference: {}",
+                userId,
+                movieShowId,
+                booking.getBookingId()
+        );
 
         return booking;
     }

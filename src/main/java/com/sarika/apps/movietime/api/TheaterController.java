@@ -2,6 +2,7 @@ package com.sarika.apps.movietime.api;
 
 import com.sarika.apps.movietime.domain.entities.Theater;
 import com.sarika.apps.movietime.domain.repositories.TheaterRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/theaters")
+@Slf4j
 public class TheaterController {
 
     private TheaterRepository theaterRepository;
@@ -22,8 +24,8 @@ public class TheaterController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public void addTheater(@RequestBody Theater theater){
-        System.out.println(theater);
         theaterRepository.save(theater);
+        log.info("Theater saved successfully");
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")

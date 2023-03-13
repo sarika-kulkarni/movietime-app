@@ -4,6 +4,7 @@ import com.sarika.apps.movietime.domain.entities.Movie;
 import com.sarika.apps.movietime.domain.repositories.MovieRepository;
 import com.sarika.apps.movietime.domain.repositories.MovieShowRepository;
 import com.sarika.apps.movietime.domain.vo.MovieShowDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/movies")
+@Slf4j
 public class MovieController {
 
     private MovieRepository movieRepository;
@@ -27,8 +29,8 @@ public class MovieController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public void addMovie(@RequestBody Movie movie){
-        System.out.println(movie);
         movieRepository.save(movie);
+        log.info("Movie saved successfully");
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")

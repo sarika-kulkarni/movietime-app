@@ -1,17 +1,26 @@
 package com.sarika.apps.movietime.config;
 
 import com.sarika.apps.movietime.domain.services.UserService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.io.IOException;
 
 @Configuration
 public class SecurityConfig {
@@ -30,13 +39,16 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/login").loginProcessingUrl("/perform_login").defaultSuccessUrl("/")
+                .successHandler(authenticationSuccessHandler())
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
                 .permitAll();
 
         http.exceptionHandling()
@@ -60,6 +72,16 @@ public class SecurityConfig {
         auth.setUserDetailsService(userService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                response.setStatus(200);
+            }
+        };
     }
 
     private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {

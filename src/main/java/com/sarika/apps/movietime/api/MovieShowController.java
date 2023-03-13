@@ -5,6 +5,7 @@ import com.sarika.apps.movietime.domain.repositories.MovieShowRepository;
 import com.sarika.apps.movietime.domain.services.BookingService;
 import com.sarika.apps.movietime.domain.vo.BookingRequest;
 import com.sarika.apps.movietime.domain.vo.MovieShowAvailability;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api/movieShows")
+@Slf4j
 public class MovieShowController {
 
     private MovieShowRepository movieShowRepository;
@@ -60,6 +62,7 @@ public class MovieShowController {
 
             return ResponseEntity.ok(booking);
         }else{
+            log.info("User not authenticated");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
