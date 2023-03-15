@@ -1,5 +1,6 @@
 package com.sarika.apps.movietime.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class Booking {
     private MovieShow movieShow;
 
     @Column(name = "booking_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
     private Date bookingDate;
 
     @Column(name = "adult_tickets")
