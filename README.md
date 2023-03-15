@@ -36,6 +36,24 @@ test cases.
 ## Directory structure
 ### src/main/java/api
 This directory contains MVC Controller classes as well as REST controller classes
+#### BookingController
+This controller retrieves existing bookings for the customer and processes
+booking cancellation
+#### LoginController
+This controller routes the customer to index page of single page application
+so that customer can login
+#### MovieController
+This controller retrieves currently running movies and allows admin to add new movies
+#### MovieShowController
+This controller retrieves movie shows for a given movie and allows
+customer to book tickets for a particular movie show
+#### ProfileController
+This controller retrieves and updates customer profile information
+#### RegistrationController
+This controller allows customer to register to MovieTime application
+#### TheaterController
+This controller retrieves theaters for given zip code and allows admin
+to add new theaters
 ### src/main/java/config
 This directory contains Spring Boot application config classes such as
 Spring security configuration.
@@ -49,6 +67,11 @@ implemented by Spring Data JPA library at runtime
 #### src/main/java/domain/services
 This directory includes all application service classes that implement
 business
+##### UserService
+This service prepares registration request and registers a new user with USER role
+##### BookingService
+This service implements business logic to retrieve seat availability
+for movie show and allows user to book tickets for given show
 #### src/main/java/domain/exceptions
 This directory contains all domain exception classes
 #### src/main/java/domain/vo
